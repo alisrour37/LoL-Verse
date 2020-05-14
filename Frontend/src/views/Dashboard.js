@@ -29,6 +29,12 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+
+  CardImg, 
+  CardText,
+  CardSubtitle,
+
+
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -48,7 +54,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { styled } from "@material-ui/core/styles";
-
+import pic from "assets/img/lol-logo.png"
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -79,15 +85,14 @@ class Dashboard extends React.Component {
     const videos = this.state.youtube.map((video) => {
       return (
         <Grid item xs={6} sm={3}>
-          <ReactPlayer
-            width="100%"
-            controls="true"
-            height="200px"
-            url={
-              "https://www.youtube.com/watch?v=" +
-              video.snippet.resourceId.videoId
-            }
-          ></ReactPlayer>
+          <Card height="4000px">
+        <CardImg  width="100%" src={video.snippet.thumbnails.standard.url} alt="Card image cap" />
+        <CardBody>
+          <CardTitle>{video.snippet.title}</CardTitle>
+          <CardSubtitle>Published By: Onivia</CardSubtitle>
+          <Button>Button</Button>
+        </CardBody>
+      </Card>
         </Grid>
       );
     });
