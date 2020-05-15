@@ -21,6 +21,7 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 import Divider from "@material-ui/core/Divider";
+import { CardMedia } from '@material-ui/core';
 // reactstrap components
 import {
   Button,
@@ -33,8 +34,8 @@ import {
   CardImg, 
   CardText,
   CardSubtitle,
-
-
+  CardDeck,
+  CardImgOverlay, 
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -64,6 +65,7 @@ class Dashboard extends React.Component {
       videoid: null,
       batata: 0,
     };
+    this.Press= this.Press.bind(this)
   }
 
   componentDidMount() {
@@ -73,26 +75,36 @@ class Dashboard extends React.Component {
       )
       .then((res) => {
         this.setState({ youtube: res.data.items });
-        console.log(this.state.youtube);
-        console.log(this.state.youtube[0].snippet.resourceId.videoId);
+        
       });
   }
-  handleChange = (event) => {
-    this.setState({ batata: event.target.value });
-    console.log(this.state.batata);
-  };
+  Press(){
+    console.log(Math.random())
+  }
   render() {
     const videos = this.state.youtube.map((video) => {
       return (
         <Grid item xs={6} sm={3}>
-          <Card height="4000px">
-        <CardImg  width="100%" src={video.snippet.thumbnails.standard.url} alt="Card image cap" />
+          <Card height="100%">
+        <CardMedia width="100%"  src={video.snippet.thumbnails.standard.url} alt="Card image cap" />
+        <CardImgOverlay >
+          <Button style={{position: "relative"}} onClick={this.Press}>Play</Button>
+        </CardImgOverlay>
         <CardBody>
-          <CardTitle>{video.snippet.title}</CardTitle>
+          <CardTitle style={{overflow:"hidden"}}>{video.snippet.title}</CardTitle>
           <CardSubtitle>Published By: Onivia</CardSubtitle>
-          <Button>Button</Button>
+         
         </CardBody>
       </Card>
+      <ReactPlayer
+            width="100%"
+            controls="false"
+            height="200px"
+            url={
+              "https://www.youtube.com/watch?v=" +
+              video.snippet.resourceId.videoId
+            }
+          ></ReactPlayer>
         </Grid>
       );
     });
@@ -110,8 +122,9 @@ class Dashboard extends React.Component {
               placeholder="Type to search for a highlight"
             ></Input>
           </div>
-          <Grid container spacing={2}>
+          <Grid container spacing={4}>
             {videos}
+            
           </Grid>
           {/* <Row>
             <Col xs="12">
