@@ -17,11 +17,7 @@
 */
 import React, { useState, useEffect } from "react";
 // nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-import Divider from "@material-ui/core/Divider";
-import { CardMedia } from "@material-ui/core";
+
 // reactstrap components
 import {
   Button,
@@ -62,7 +58,7 @@ function Dashboard() {
   const [videoid, setVideoid] = useState(null);
 
   useEffect(() => {
-    console.log("batata")
+    
     axios
       .get(
         "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=PLx1tUfSuJjy04SqlSXmYBGPiK-C3e3cjd&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs"
@@ -106,6 +102,7 @@ function Dashboard() {
                     {video.snippet.title}
                   </CardTitle>
                   <CardSubtitle>Published By: Onivia</CardSubtitle>
+                  <Button >Watch Now</Button>
                 </CardBody>
               </Card>
             </Grid>)

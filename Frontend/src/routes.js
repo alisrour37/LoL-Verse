@@ -29,15 +29,15 @@ var routes = [
     path: "/dashboard",
     name: "Videos",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
+    icon: "tim-icons icon-video-66",
     component: Dashboard,
     layout: "/admin"
   },
   {
     path: "/icons",
-    name: "My Team",
+    name: "My Team Draft",
     rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
+    icon: "tim-icons icon-single-copy-04",
     component: Icons,
     layout: "/admin"
   },
