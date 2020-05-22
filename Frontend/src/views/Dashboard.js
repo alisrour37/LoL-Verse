@@ -16,9 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
-// nodejs library that concatenates classes
-
-// reactstrap components
+import {connect} from 'react-redux';
 import {
   Button,
   ButtonGroup,
@@ -68,9 +66,10 @@ function Dashboard() {
       });
   }, []);
 
-  function Press() {
-    console.log(Math.random());
-  }
+
+
+  
+ 
 
   return (
     <>
@@ -102,7 +101,7 @@ function Dashboard() {
                     {video.snippet.title}
                   </CardTitle>
                   <CardSubtitle>Published By: Onivia</CardSubtitle>
-                  <Button >Watch Now</Button>
+                  <Button onClick={console.log("10")}>Watch Now</Button>
                 </CardBody>
               </Card>
             </Grid>)
@@ -113,4 +112,17 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+
+const mapStateToProps = state => {
+  return {
+      videoID: state.counter
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+      onIncrementCounter: () => dispatch({
+          type:'SELECT'
+      })
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

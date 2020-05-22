@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-export default function SingleVideo (){
+function SingleVideo (){
 
+const mapStateToProps = state => {
+    return {
+        videoId: state.videoId
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => 
+        dispatch({type:'INCREMENT'})
+    };
+};
 
 return(
 
@@ -11,7 +22,7 @@ return(
             height="200px"
             url={
               "https://www.youtube.com/watch?v=" +
-              video.snippet.resourceId.videoId
+              this.props.videoId
             }
           ></ReactPlayer>
 
@@ -20,3 +31,5 @@ return(
 
         }
 
+
+      export default connect(mapStateToProps, mapDispatchToProps)(SingleVideo);
