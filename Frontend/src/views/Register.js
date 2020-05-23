@@ -64,7 +64,7 @@ export default class Register extends React.Component {
                 localStorage.setItem('token_type', res.data.token_type);
                 localStorage.setItem('isLogged', true);
                 localStorage.setItem('user_id', res.data.user_id); 
-            
+                this.props.history.push('/admin/dashboard')
             });
     };
     handleLogin = e => {
