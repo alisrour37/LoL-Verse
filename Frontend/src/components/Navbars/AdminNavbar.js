@@ -18,6 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import axios from 'axios';
 
 // reactstrap components
 import {
@@ -43,7 +44,10 @@ class AdminNavbar extends React.Component {
     this.state = {
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent"
+      color: "navbar-transparent",
+      image: null,
+      profile: null,
+      invites: [],
     };
   }
   componentDidMount() {
@@ -84,6 +88,14 @@ class AdminNavbar extends React.Component {
     this.setState({
       modalSearch: !this.state.modalSearch
     });
+  };
+  logout = () => {
+    axios.get("http://localhost:8000/api/auth/logout", {
+      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
+    }).then(res => {
+      localStorage.clear();
+      this.props.history.push('/')
+    })
   };
   render() {
     return (
@@ -194,7 +206,7 @@ class AdminNavbar extends React.Component {
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.logout}>Log out</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

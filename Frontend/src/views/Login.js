@@ -49,7 +49,7 @@ export default class Login extends React.Component {
                 localStorage.setItem('token_type', res.data.token_type);
                 localStorage.setItem('isLogged', true);
                 localStorage.setItem('user_id', res.data.user_id); 
-                this.props.history.push('/admin/party')
+                this.props.history.push('/admin/dashboard')
             });
     };
 
