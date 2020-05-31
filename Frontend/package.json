@@ -26,6 +26,7 @@
     "react-chartjs-2": "2.9.0",
     "react-chronos": "^1.0.5",
     "react-dom": "^16.13.0",
+    "react-elasticsearch": "^2.0.0",
     "react-google-maps": "9.4.5",
     "react-notification-alert": "0.0.12",
     "react-player": "^2.0.1",

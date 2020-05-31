@@ -17,6 +17,8 @@
 */
 import React, { useState, useEffect } from "react";
 import {connect} from 'react-redux';
+import { Elasticsearch, Results, Facet } from "react-elasticsearch";
+
 import {
   Button,
   ButtonGroup,
@@ -54,13 +56,11 @@ function Dashboard() {
   const [bigChartData, setBgChartData] = useState("data1");
   const [youtube, setYoutube] = useState([]);
   const [videoid, setVideoid] = useState(null);
-
+  const url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=PLx1tUfSuJjy04SqlSXmYBGPiK-C3e3cjd&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs';
   useEffect(() => {
     
     axios
-      .get(
-        "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=PLx1tUfSuJjy04SqlSXmYBGPiK-C3e3cjd&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs"
-      )
+      .get(url)
       .then((res) => {
         setYoutube(res.data.items);
       });
@@ -84,6 +84,15 @@ function Dashboard() {
             placeholder="Type to search for a highlight"
           ></Input>
         </div>
+
+   <Elasticsearch url={url}>
+    <Results
+      id="result"
+      items={data => data.map(item => <>{item._source.title}</>)}
+    />
+    <Facet placeholder="Search Here"/>
+  </Elasticsearch>
+ 
         <Grid container spacing={3}>
           {youtube.map(video => {
             return(
