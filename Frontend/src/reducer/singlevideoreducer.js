@@ -1,6 +1,8 @@
-const initialState = {
-    videoID: null
+const initialState = 
+{
+    counter: 20
 }
+
 const singlevideoreducer = (state = initialState, action) => {
     if(action.type === 'INCREMENT'){
         return{

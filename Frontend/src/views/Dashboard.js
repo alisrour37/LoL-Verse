@@ -1,137 +1,26 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {connect} from 'react-redux';
-import { Elasticsearch, Results, Facet } from "react-elasticsearch";
+import { createStore } from 'redux';
+import {Provider} from 'react-redux';
 
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  CardImg,
-  CardText,
-  CardSubtitle,
-  CardDeck,
-  CardImgOverlay,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
-  Row,
-  Col,
-  UncontrolledTooltip,
-} from "reactstrap";
-import ReactPlayer from "react-player";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-// core components
-import { makeStyles } from "@material-ui/core/styles";
-import axios from "axios";
-import { styled } from "@material-ui/core/styles";
-import pic from "assets/img/lol-logo.png";
+import singlevideoreducer from '../reducer/singlevideoreducer';
+import VideoMain from "./VideoMain";
 
 function Dashboard() {
-  const [bigChartData, setBgChartData] = useState("data1");
-  const [youtube, setYoutube] = useState([]);
-  const [videoid, setVideoid] = useState(null);
-  const url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=PLx1tUfSuJjy04SqlSXmYBGPiK-C3e3cjd&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs';
-  useEffect(() => {
-    
-    axios
-      .get(url)
-      .then((res) => {
-        setYoutube(res.data.items);
-      });
-  }, []);
-
-
-
   
- 
+  const store = createStore(singlevideoreducer);
 
   return (
     <>
-      <div className="content">
-        <div style={{ width: "30%", marginBottom: "100px" }}>
-          <Input
-            style={{
-              color: "black",
-              fontWeight: "bold",
-              backgroundColor: "white",
-            }}
-            placeholder="Type to search for a highlight"
-          ></Input>
-        </div>
+    
+    <Provider store={store}><VideoMain /></Provider>
 
-   <Elasticsearch url={url}>
-    <Results
-      id="result"
-      items={data => data.map(item => <>{item._source.title}</>)}
-    />
-    <Facet placeholder="Search Here"/>
-  </Elasticsearch>
- 
-        <Grid container spacing={3}>
-          {youtube.map(video => {
-            return(
-            <Grid item xs={12} sm={4}>
-              <Card style={{ height: "491px", width: "477px" }}>
-                <CardHeader width="100%" style={{ pointerEvents: "none" }}>
-                  <CardImg
-                    style={{ height: "100%" }}
-                    src={video.snippet.thumbnails.high.url}
-                  ></CardImg>
-                </CardHeader>
-
-                <CardBody>
-                  <CardTitle style={{ overflow: "hidden" }}>
-                    {video.snippet.title}
-                  </CardTitle>
-                  <CardSubtitle>Published By: Onivia</CardSubtitle>
-                  <Button onClick={console.log("10")}>Watch Now</Button>
-                </CardBody>
-              </Card>
-            </Grid>)
-          })}
-        </Grid>
-      </div>
     </>
   );
 }
 
 
-const mapStateToProps = state => {
-  return {
-      videoID: state.counter
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-      onIncrementCounter: () => dispatch({
-          type:'SELECT'
-      })
-  };
-};
 export default Dashboard;
+
+
+
