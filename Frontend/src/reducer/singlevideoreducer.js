@@ -1,12 +1,19 @@
 const initialState = 
 {
-    counter: 20
+    
+    videoID: false
 }
 
 const singlevideoreducer = (state = initialState, action) => {
-    if(action.type === 'INCREMENT'){
+    if(action.type === 'SELECT'){
+        return Object.assign({}, state, {
+                videoID: action.data
+              })
+        
+    }
+    if(action.type === 'DESELECT'){
         return{
-            videoID: state.videoID
+            videoID: false
         }
     }
     return state;

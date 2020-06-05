@@ -1,35 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import {Button} from 'reactstrap';
+import {useSelector,useDispatch} from 'react-redux'
+import ReactPlayer from 'react-player';
 
 function SingleVideo (){
-
-const mapStateToProps = state => {
-    return {
-        videoId: state.videoId
-    };
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        onIncrementCounter: () => 
-        dispatch({type:'INCREMENT'})
-    };
-};
-
+const viewselection = useSelector((state) => state.videoID);
+const dispatch= useDispatch();
+const goback= ()=>{
+    dispatch({ type: 'DESELECT' })
+}
 return(
-
+    <>
+<Button onClick={goback}>Go Back</Button>
     <ReactPlayer
             width="100%"
             controls="true"
             height="200px"
             url={
               "https://www.youtube.com/watch?v=" +
-              this.props.videoId
+              viewselection
             }
           ></ReactPlayer>
-
+</>
 );
 
 
         }
 
 
-      export default connect(mapStateToProps, mapDispatchToProps)(SingleVideo);
+      export default SingleVideo;

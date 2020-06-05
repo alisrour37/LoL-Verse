@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   ReactiveBase,
   DataSearch,
@@ -29,9 +29,14 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import { useSelector,useDispatch } from "react-redux";
 
 export default function Elastic() {
-  return (
+  const dispatch= useDispatch();
+  
+  
+
+      return (
     <div className="main-container">
       <ReactiveBase
         app="lolversefinal1"
@@ -128,7 +133,7 @@ export default function Elastic() {
                           {item.snippet.title}
                         </CardTitle>
                         <CardSubtitle>Published By: Onivia</CardSubtitle>
-                        <Button onClick={console.log("10")}>Watch Now</Button>
+                        <Button onClick={() => dispatch({ type: 'SELECT', data: item.snippet.resourceId.videoId })}>Watch Now</Button>
                       </CardBody>
                     </Card>
                   </div>
