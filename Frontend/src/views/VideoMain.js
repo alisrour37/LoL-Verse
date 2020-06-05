@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Elasticsearch, Results, Facet } from "react-elasticsearch";
+import Elastic from './Elastic.js'
 
 import {
   Button,
@@ -35,37 +35,32 @@ import axios from "axios";
 import { styled } from "@material-ui/core/styles";
 import pic from "assets/img/lol-logo.png";
 import { useDispatch, useSelector } from "react-redux";
+
+
 function VideoMain() {
 
   const count = useSelector((state) => state.counter);
   const [youtube, setYoutube] = useState([]);
 
   const url =
-    "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=PLx1tUfSuJjy04SqlSXmYBGPiK-C3e3cjd&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs";
+    "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=100&playlistId=PLx1tUfSuJjy2WRnpDWiCNhFGroQYnI0o7&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs";
   useEffect(() => {
     axios.get(url).then((res) => {
       setYoutube(res.data.items);
     });
   }, []);
-
+  //const changeInputValue = (newValue) => {dispatch({ type: 'UPDATE_INPUT', data: newValue,});};
   return (
     <>
       <div className="content">
-        <div style={{ width: "30%", marginBottom: "100px" }}>
-          <Input
-            style={{
-              color: "black",
-              fontWeight: "bold",
-              backgroundColor: "white",
-            }}
-            placeholder="Type to search for a highlight"
-          ></Input>
-        </div>
+        
         <Card>
           <CardHeader>{count}</CardHeader>
         </Card>
+       
+          <Elastic/>
 
-        <Grid container spacing={3}>
+          <Grid container spacing={3}>
           {youtube.map((video) => {
             return (
               <Grid item xs={12} sm={4}>

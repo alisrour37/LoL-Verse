@@ -1,0 +1,10 @@
+.search-field .search-title {
+    font-size: 2rem;
+}
+
+.search-field .search-input {
+    border: none;
+    
+    border-radius: 5px;
+    font-weight: bold;
+}
