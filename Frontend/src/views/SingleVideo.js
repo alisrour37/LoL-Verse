@@ -13,9 +13,9 @@ return(
     <>
 <Button onClick={goback}>Go Back</Button>
     <ReactPlayer
-            width="100%"
+            width="50%"
             controls="true"
-            height="200px"
+            height="500px"
             url={
               "https://www.youtube.com/watch?v=" +
               viewselection

@@ -42,12 +42,13 @@ function VideoMain() {
     "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=100&playlistId=PLx1tUfSuJjy2WRnpDWiCNhFGroQYnI0o7&key=AIzaSyCXBBKXi06vMqoijRACFJPxpJtj38c17vs";
 
 
-  const viewselection = useSelector((state) => state.counter);
+  const viewselection = useSelector((state) => state.videoID);
 
   //const changeInputValue = (newValue) => {dispatch({ type: 'UPDATE_INPUT', data: newValue,});};
   return (
     <>
       <div className="content">
+    
         {viewselection ? <SingleVideo /> : <Elastic />}
       </div>
     </>
