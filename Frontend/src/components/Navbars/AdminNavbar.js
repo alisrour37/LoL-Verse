@@ -19,6 +19,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import axios from 'axios';
+import logo from "assets/img/lol-logo.png";
 
 // reactstrap components
 import {
@@ -103,8 +104,11 @@ class AdminNavbar extends React.Component {
         <Navbar
           className={classNames("navbar-absolute", this.state.color)}
           expand="lg"
+          style={{position:'fixed',borderBottom:'20px',borderColor:'white',backgroundColor:'#1e1e2f',opacity:'10'}}
         >
           <Container fluid>
+            <img style={{width:'40px',height:'40px'}}src={logo}></img>
+            <span style={{color:'white', fontSize:'23px',marginLeft:'10px'}}>LoL Verse</span>
             <div className="navbar-wrapper">
               <div
                 className={classNames("navbar-toggle d-inline", {
