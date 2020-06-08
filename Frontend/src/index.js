@@ -6,7 +6,7 @@ import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 import Login from "./views/Login"
 import Register from "./views/Register"
 import AdminLayout from "layouts/Admin/Admin.js";
-import RTLLayout from "layouts/RTL/RTL.js";
+//import RTLLayout from "layouts/RTL/RTL.js";
 import { ProtectedRoute } from "./protected.routes";
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";

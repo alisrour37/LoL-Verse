@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React from "react";
 import {
   ReactiveBase,
   DataSearch,
@@ -7,29 +7,16 @@ import {
 import "./App.css";
 import {
   Button,
-  ButtonGroup,
+ 
   Card,
   CardHeader,
   CardBody,
   CardTitle,
   CardImg,
-  CardText,
-  CardSubtitle,
-  CardDeck,
-  CardImgOverlay,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
-  Row,
-  Col,
-  UncontrolledTooltip,
+   CardSubtitle,
+ 
 } from "reactstrap";
-import { useSelector,useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Elastic() {
   const dispatch= useDispatch();

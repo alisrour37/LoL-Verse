@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {Button} from 'reactstrap';
 import {useSelector,useDispatch} from 'react-redux'
 import ReactPlayer from 'react-player';
