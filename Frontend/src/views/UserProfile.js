@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import uploadIcon from '../assets/img/upload1.png'
 // reactstrap components
 import {
   Button,
@@ -14,9 +15,59 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { setOriginalNode } from "typescript";
 
-class UserProfile extends React.Component {
-  render() {
+function UserProfile() {
+  
+const [firstname,setfirstname] = useState();
+const [lastname,setlastname] = useState();
+const [username,setusername] = useState();
+const [about,setabout] = useState();
+const [placeholderFN,setplaceholderFN] = useState();
+const [placeholderLN,setplaceholderLN] = useState();
+const [placeholderEmail,setplaceholderEmail] = useState();
+const [placeholderUs,setplaceholderUs] = useState();
+const [placeholderAB,setplaceholderAB] = useState();
+const [upload,setupload] = useState('false');
+const [image,setimage] = useState('null');
+const [user_id,setuserid] = useState(localStorage.getItem('user_id'));
+const [profile,setprofile] = useState();
+
+
+useEffect(() => {
+  axios.get('http://localhost:8000/api/auth/user', {
+      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
+    })
+    .then(res=>{
+      setplaceholderFN(res.data.first_name);
+      setplaceholderLN(res.data.last_name);
+      setplaceholderEmail(res.data.email);
+      setplaceholderUs(res.data.username);
+      setplaceholderAB(res.data.about);
+      setabout(res.data.about);
+      setusername(res.data.username);
+    })
+}, []);
+
+handleImage=(event)=>{
+  setimage(event.target.files[0]);
+  setupload('true')
+}
+handleSubmit = (event) =>{
+  event.preventDefault();
+  let request = new FormData();
+  request.append('image',image);
+    request.append('user_id', user_id);
+    request.append('first_name',firstName);
+    request.append('last_name',lastName);
+    request.append('username',username)
+    request.append('about', about)
+    request.append('upload',upload)
+
+    axios.post('http://localhost:8000/api/auth/profileUpdate', request, {
+      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
+    })
+}
     return (
       <>
         <div className="content">
