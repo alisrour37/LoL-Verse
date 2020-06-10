@@ -11,5 +11,8 @@ Route::group([
     'middleware' => 'auth:api'
     ], function () {
         Route::get('logout', 'Auth\AuthController@logout');
+        Route::post('profileUpdate','UserController@update');
+        Route::get('user', 'Auth\AuthController@user');
+        Route::get('/userinfo','UserController@userinfo');
     });
 });

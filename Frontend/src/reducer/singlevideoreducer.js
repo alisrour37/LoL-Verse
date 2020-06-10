@@ -1,7 +1,8 @@
 const initialState = 
 {
     
-    videoID: false
+    videoID: false,
+    newsID: false
 }
 
 const singlevideoreducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const singlevideoreducer = (state = initialState, action) => {
     if(action.type === 'DESELECT'){
         return{
             videoID: false
+        }
+    }
+    if(action.type === 'DESELECTNEWS'){
+        return{
+            newsID: false
         }
     }
     return state;

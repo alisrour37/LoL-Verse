@@ -1,9 +1,5 @@
 import React from "react";
 import Elastic from "./Elastic.js";
-
-
-
-
 import { useSelector } from "react-redux";
 import SingleVideo from "./SingleVideo.js";
 

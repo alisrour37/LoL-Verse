@@ -143,7 +143,7 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
                     <Row>
                       <Col md="1">
                         <FormGroup>
-                          <label>Profile Picture</label>
+                          <label>Upload</label>
                           <img src={uploadIcon} alt="" ></img>
                           <Input
                             type="file"
