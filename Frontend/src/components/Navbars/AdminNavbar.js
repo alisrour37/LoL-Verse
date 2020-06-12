@@ -102,10 +102,10 @@ class AdminNavbar extends React.Component {
     return (
       <>
         <Navbar
-          className={classNames("navbar-absolute", this.state.color)}
+          className={classNames("navbar-absolute")}
           expand="lg"
           
-          style={{borderBottom:'20px',backgroundColor:'#1e1e2f',opacity:'1',position:'fixed'}}
+          style={{borderBottom:'20px',backgroundColor:'#1e1e2f',position:'fixed'}}
         >
           <Container fluid>
             <img style={{width:'40px',height:'40px'}}src={logo}></img>

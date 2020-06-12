@@ -39,6 +39,7 @@ useEffect(() => {
       headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
     })
     .then(res=>{
+      console.log(res.data)
       setplaceholderFN(res.data.first_name);
       setplaceholderLN(res.data.last_name);
       setplaceholderEmail(res.data.email);
@@ -68,47 +69,49 @@ const handleSubmit = (event) =>{
       headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
     })
 }
-const imgsrc = "http://localhost:8000/image/" + profile + ".png";
+const imgsrc = "http://localhost:8000/image/" + user_id + ".png";
     return (
       <>
-        <div className="content">
+        <div className="content" style={{marginTop:'3px'}}>
           <Row>
             
-            <Col md="8">
+            <Col md="6">
               <Card>
                 <CardHeader>
                   <h5 className="title">Edit Profile</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form encType="multipart/form-data" onSubmit={handleSubmit}>
+                  <Form encType="multipart/form-data" onSubmit={()=>handleSubmit}>
                   <Row>
                       <Col md="12">
                         <FormGroup >
-                          <label htmlFor="exampleInputEmail1" >
+                          <label style={{color:'white'}} htmlFor="exampleInputEmail1" >
                             Username
                           </label>
-                          <Input id='Us' placeholder={placeholderUs} type="text" onChange={setusername}  />
+                          <Input id='Us' placeholder={placeholderUs} type="text" disabled />
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
-                          <label>First Name</label>
+                          <label style={{color:'white'}}>First Name</label>
                           <Input
                             id='FN'
                             type="text"
-                            onChange={setfirstname}
+                            value={firstname}
+                            onChange={e=> setfirstname(e.target.value)}
                             placeholder={placeholderFN}
                           />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <label>Last Name</label>
+                          <label style={{color:'white'}}>Last Name</label>
                           <Input
                             id='LN'
-                            onChange={setlastname}
+                            onChange={e=>setlastname(e.target.value)}
+                            value={lastname}
                             type="text"
                             placeholder={placeholderLN}
                           />
@@ -118,7 +121,7 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
                     <Row>
                       <Col md="12">
                         <FormGroup >
-                          <label htmlFor="exampleInputEmail1" >
+                          <label style={{color:'white'}} htmlFor="exampleInputEmail1" >
                             Email address
                           </label>
                           <Input placeholder={placeholderEmail} type="email" disabled />
@@ -128,11 +131,12 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
                     <Row>
                       <Col md="8">
                         <FormGroup>
-                          <label>About Me</label>
+                          <label style={{color:'white'}}>About Me</label>
                           <Input
                             cols="80"
                             placeholder={placeholderAB}
-                            onChange={setabout}
+                            onChange={e=>setabout(e.target.value)}
+                            value={about}
                             rows="4"
                             id='AB'
                             type="textarea"
@@ -141,13 +145,13 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
                       </Col>
                     </Row>
                     <Row>
-                      <Col md="1">
+                      <Col md="3">
                         <FormGroup>
-                          <label>Upload</label>
-                          <img src={uploadIcon} alt="" ></img>
+                          <label style={{color:'white'}}>Press to Upload Image</label>
+                          <img style={{height:'50%',width:'50%'}} src={uploadIcon} alt="" ></img>
                           <Input
                             type="file"
-                            onChange={handleImage}
+                            onChange={e=>handleImage(e)}
                           />
                         </FormGroup>
                       </Col>
@@ -162,8 +166,8 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
               </Card>
             </Col>
 
-            <Col md="4">
-              <Card className="card-user">
+            <Col md="5">
+              <Card className="card-user" style={{height:'645px'}}>
                 <CardBody>
                   <CardText />
                   <div className="author">
@@ -173,11 +177,12 @@ const imgsrc = "http://localhost:8000/image/" + profile + ".png";
                     <div className="block block-four" />
                       <img
                         src={imgsrc}
+                        style={{height:'400px'}}
                       />
-                      <h2 className="title">{username}</h2>
+                      <h2 className="title" style={{fontFamily:'Ubuntu',color:'white',marginTop:'5px'}}>{username}</h2>
                   </div>
-                  <div className="card-description" style={{ color: 'white', fontSize: 18}}>
-                    {about}
+                  <div className="card-description" style={{ color: 'white', fontSize: 16,fontFamily:'Ubuntu'}}>
+                    About Me: {about}
                   </div>
                 </CardBody>
 

@@ -120,6 +120,7 @@ class Admin extends React.Component {
           />
           <div
             className="main-panel"
+            style={{borderTop:'none'}}
             ref="mainPanel"
             data={this.state.backgroundColor}
           >

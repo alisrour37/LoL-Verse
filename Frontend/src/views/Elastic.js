@@ -17,6 +17,7 @@ import {
  
 } from "reactstrap";
 import { useDispatch } from "react-redux";
+import { Typography } from "@material-ui/core";
 
 export default function Elastic() {
   const dispatch= useDispatch();
@@ -45,6 +46,7 @@ export default function Elastic() {
           },
         }}
       >
+        <Typography variant="h4" style={{color:'white',fontFamily:'Ubuntu', marginBottom:'20px'}}>Watch the latest League of Legends highlights!</Typography>
         <div style={{ width: "30%", marginBottom: "20px" }}>
           <DataSearch
              innerClass={{
@@ -56,8 +58,7 @@ export default function Elastic() {
             componentId="mainSearch"
             dataField={["snippet.title"]}
             categoryField="title"
-            fuzziness={200}
-            debounce={20}
+            style={{marginTop:'2px'}}
             queryFormat="and"
             placeholder="Type to search for a highlight"
             autosuggest={false}

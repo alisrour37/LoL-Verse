@@ -29,7 +29,7 @@ const singlevideoreducer = (state = initialState, action) => {
         return Object.assign({}, state, {
             videoID: false,    
             newsImage: action.image,
-            newsBody: action.body,
+           
             newsTitle: action.title,
               })
         

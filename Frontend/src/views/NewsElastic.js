@@ -17,6 +17,7 @@ import {
  
 } from "reactstrap";
 import { useDispatch } from "react-redux";
+import { Typography } from "@material-ui/core";
 
 export default function NewsElastic() {
   const dispatch= useDispatch();
@@ -45,6 +46,8 @@ export default function NewsElastic() {
           },
         }}
       >
+                <Typography variant="h4" style={{color:'white',fontFamily:'Ubuntu', marginBottom:'20px'}}>Watch the latest League of Legends highlights!</Typography>
+
         <div style={{ width: "30%", marginBottom: "20px" }}>
           <DataSearch
              innerClass={{
@@ -104,7 +107,7 @@ export default function NewsElastic() {
                     style={{ marginRight: "15px" }}
                     className="main-description"
                   >
-                    <Card style={{ height: "400px", width: "477px" }}>
+                    <Card style={{ height: "410px", width: "477px" }}>
                       <CardHeader
                         width="100%"
                         style={{ pointerEvents: "none" }}
@@ -119,8 +122,8 @@ export default function NewsElastic() {
                         <CardTitle style={{ overflow: "hidden",height:'48px' }}>
                           {item.newsTitle}
                         </CardTitle>
-                        <CardSubtitle>Published By: Onivia</CardSubtitle>
-                        <Button onClick={() => dispatch({ type: 'SELECTNEWS', data: item.newsTitle })}>Read More</Button>
+                        <CardSubtitle style={{marginTop:'20px'}}>Published By: DotEsports</CardSubtitle>
+                        <Button style={{marginBottom:'30px'}} onClick={() => dispatch({ type: 'SELECTNEWS', title: item.newsTitle,image: item.newsImage, })}>Read More</Button>
                       </CardBody>
                     </Card>
                   </div>
