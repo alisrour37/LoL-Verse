@@ -35,7 +35,7 @@ var routes = [
   },
   {
     path: "/icons",
-    name: "My Team Draft",
+    name: "Latest News",
     rtlName: "الرموز",
     icon: "tim-icons icon-single-copy-04",
     component: Icons,

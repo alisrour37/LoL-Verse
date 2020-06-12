@@ -26,8 +26,8 @@ export default function NewsElastic() {
       return (
     <div className="main-container">
       <ReactiveBase
-        app="lolversefinal1"
-        credentials="zMS8dcMI1:238e3186-9db5-475d-94b4-ea8a17aedf0c"
+        app="lolversefinal2"
+        credentials="zZUU50CnB:f407fd58-73aa-4929-87b1-66f75f612273"
         theme={{
           typography: {
             fontFamily:
@@ -54,7 +54,7 @@ export default function NewsElastic() {
             className="search-field"
 
             componentId="mainSearch"
-            dataField={["snippet.title"]}
+            dataField={["newsTitle"]}
             categoryField="title"
             fuzziness={200}
             debounce={20}
@@ -104,23 +104,23 @@ export default function NewsElastic() {
                     style={{ marginRight: "15px" }}
                     className="main-description"
                   >
-                    <Card style={{ height: "491px", width: "477px" }}>
+                    <Card style={{ height: "400px", width: "477px" }}>
                       <CardHeader
                         width="100%"
                         style={{ pointerEvents: "none" }}
                       >
                         <CardImg
-                          style={{ height: "100%" }}
-                          src={item.snippet.thumbnails.high.url}
+                          style={{ height: "229px",width:'447px' }}
+                          src={item.newsImage}
                         ></CardImg>
                       </CardHeader>
 
                       <CardBody>
-                        <CardTitle style={{ overflow: "hidden" }}>
-                          {item.snippet.title}
+                        <CardTitle style={{ overflow: "hidden",height:'48px' }}>
+                          {item.newsTitle}
                         </CardTitle>
                         <CardSubtitle>Published By: Onivia</CardSubtitle>
-                        <Button onClick={() => dispatch({ type: 'SELECT', data: item.snippet.resourceId.videoId })}>Watch Now</Button>
+                        <Button onClick={() => dispatch({ type: 'SELECTNEWS', data: item.newsTitle })}>Read More</Button>
                       </CardBody>
                     </Card>
                   </div>

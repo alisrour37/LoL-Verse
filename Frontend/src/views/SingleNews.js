@@ -14,7 +14,9 @@ import {
   } from "reactstrap";
 
 export default function SingleNews(){
-    const viewselection = useSelector((state) => state.videoID);
+    const newsImage = useSelector((state) => state.newsImage);
+    const newsBody = useSelector((state) => state.newsBody);
+    const newsTitle = useSelector((state) => state.newsTitle);
     const dispatch= useDispatch();
     const goback= ()=>{
         dispatch({ type: 'DESELECTNEWS' })
@@ -29,15 +31,15 @@ return(
                       >
                         <CardImg
                           style={{ height: "100%" }}
-                          src={item.snippet.thumbnails.high.url}
+                          src={newsImage}
                         ></CardImg>
                       </CardHeader>
 
                       <CardBody>
                         <CardTitle style={{ overflow: "hidden" }}>
-                          {item.snippet.title}
+                          {newsTitle}
                         </CardTitle>
-                        <CardSubtitle>Published By: Onivia</CardSubtitle>
+                        <CardSubtitle>{newsBody}</CardSubtitle>
                         
                       </CardBody>
                     </Card>

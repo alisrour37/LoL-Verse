@@ -2,7 +2,10 @@ const initialState =
 {
     
     videoID: false,
-    newsID: false
+    newsImage: false,
+            newsBody: false,
+            newsTitle: false
+
 }
 
 const singlevideoreducer = (state = initialState, action) => {
@@ -21,6 +24,15 @@ const singlevideoreducer = (state = initialState, action) => {
         return{
             newsID: false
         }
+    }
+    if(action.type === 'SELECTNEWS'){
+        return Object.assign({}, state, {
+            videoID: false,    
+            newsImage: action.image,
+            newsBody: action.body,
+            newsTitle: action.title,
+              })
+        
     }
     return state;
 };

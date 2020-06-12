@@ -9,7 +9,7 @@ import SingleNews from "./SingleNews.js";
 
 export default function NewsMain(){
 
-    const newsselection = useSelector((state) => state.newsID);
+    const newsselection = useSelector((state) => state.newsImage);
 
     //const changeInputValue = (newValue) => {dispatch({ type: 'UPDATE_INPUT', data: newValue,});};
     return (
