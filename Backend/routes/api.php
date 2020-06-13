@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CommentsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +16,7 @@ Route::group([
         Route::post('profileUpdate','UserController@update');
         Route::get('user', 'Auth\AuthController@user');
         Route::get('/userinfo','UserController@userinfo');
+        Route::get('comments','CommentsController@show');
+        Route::post('addcomment','CommentsController@addComment');
     });
 });

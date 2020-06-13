@@ -3,6 +3,8 @@ import {
   ReactiveBase,
   DataSearch,
   ReactiveList,
+  ToggleButton,
+  SelectedFilters
 } from "@appbaseio/reactivesearch";
 import "./App.css";
 import {
@@ -17,7 +19,7 @@ import {
  
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 export default function Elastic() {
   const dispatch= useDispatch();
@@ -47,7 +49,8 @@ export default function Elastic() {
         }}
       >
         <Typography variant="h4" style={{color:'white',fontFamily:'Ubuntu', marginBottom:'20px'}}>Watch the latest League of Legends highlights!</Typography>
-        <div style={{ width: "30%", marginBottom: "20px" }}>
+        <Grid container style={{ width: "100%", marginBottom: "20px" }}>
+          <Grid item xs={4}>
           <DataSearch
              innerClass={{
                 title: 'search-title',
@@ -58,19 +61,41 @@ export default function Elastic() {
             componentId="mainSearch"
             dataField={["snippet.title"]}
             categoryField="title"
-            style={{marginTop:'2px'}}
+            style={{marginTop:'2px',width:'70%'}}
             queryFormat="and"
             placeholder="Type to search for a highlight"
             autosuggest={false}
             filterLabel="search"
             showIcon={false}
           />
-        </div>
+          </Grid>
+       <Grid item xs={1} style={{color:'white',fontWeight:'bold',marginTop:'10px', marginRight:'-10px'}}>
+         <Typography style={{color:'white',fontWeight:'bold', marginRight:'-10px'}}>Filter by Team</Typography>
+         </Grid>
+         <Grid item xs={4}>
+         <ToggleButton
+    componentId="Selected Team"
+    dataField="snippet.title"
+           
+    data={[
+        { label: 'Fnatic', value: 'FNC' },
+        { label: 'G2', value: 'G2' },
+        { label: 'SK', value: 'SK' },
+    ]}
+    multiSelect={true}
+    showFilter={false}
+     
+     style={{color:'white'}}
+/>
+
+</Grid>
+</Grid>
+
 
         <div>
           <ReactiveList
             componentId="results"
-            dataField="title"
+            dataField="snippet.title"
             react={{
               and: [
                 "mainSearch",
