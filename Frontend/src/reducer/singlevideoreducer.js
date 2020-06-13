@@ -4,37 +4,43 @@ const initialState =
     videoID: false,
     newsImage: false,
             newsBody: false,
-            newsTitle: false
+            newsTitle: false,
+            imgsrc: false,
+            newsTime: false
 
 }
 
 const singlevideoreducer = (state = initialState, action) => {
-    if(action.type === 'SELECT'){
-        return Object.assign({}, state, {
+
+    switch (action.type) {
+        case 'SELECT':
+            return Object.assign({}, state, {
                 videoID: action.data
               })
-        
-    }
-    if(action.type === 'DESELECT'){
-        return{
-            videoID: false
-        }
-    }
-    if(action.type === 'DESELECTNEWS'){
-        return{
-            newsID: false
-        }
-    }
-    if(action.type === 'SELECTNEWS'){
-        return Object.assign({}, state, {
-            videoID: false,    
-            newsImage: action.image,
-           
-            newsTitle: action.title,
-              })
-        
-    }
-    return state;
+          case 'DESELECT':
+            return{
+                videoID: false
+            }
+            case 'DESELECTNEWS':
+                return{
+                    newsID: false
+                }
+            case 'SELECTNEWS':
+                return Object.assign({}, state, {
+                    videoID: false,    
+                    newsImage: action.image,
+                   newsBody: action.body,
+                   newsTime: action.time,
+                    newsTitle: action.title,
+                      })
+            case 'IMGSRC':
+                return{
+                    imgsrc: action.data
+                }
+        default:
+          return state
+    
 };
-
+}
 export default singlevideoreducer;
+

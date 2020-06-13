@@ -7,24 +7,20 @@ import {
 import "./App.css";
 import {
   Button,
- 
   Card,
   CardHeader,
   CardBody,
   CardTitle,
   CardImg,
-   CardSubtitle,
- 
+  CardSubtitle,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { Typography } from "@material-ui/core";
 
 export default function NewsElastic() {
-  const dispatch= useDispatch();
-  
-  
+  const dispatch = useDispatch();
 
-      return (
+  return (
     <div className="main-container">
       <ReactiveBase
         app="lolversefinal2"
@@ -46,16 +42,20 @@ export default function NewsElastic() {
           },
         }}
       >
-                <Typography variant="h4" style={{color:'white',fontFamily:'Ubuntu', marginBottom:'20px'}}>Watch the latest League of Legends highlights!</Typography>
+        <Typography
+          variant="h4"
+          style={{ color: "white", fontFamily: "Ubuntu", marginBottom: "20px" }}
+        >
+          Read The Latest League of Legends News!
+        </Typography>
 
         <div style={{ width: "30%", marginBottom: "20px" }}>
           <DataSearch
-             innerClass={{
-                title: 'search-title',
-                input: 'search-input'
+            innerClass={{
+              title: "search-title",
+              input: "search-input",
             }}
             className="search-field"
-
             componentId="mainSearch"
             dataField={["newsTitle"]}
             categoryField="title"
@@ -107,23 +107,56 @@ export default function NewsElastic() {
                     style={{ marginRight: "15px" }}
                     className="main-description"
                   >
-                    <Card style={{ height: "410px", width: "477px" }}>
+                    <Card style={{ height: "440px", width: "477px" }}>
                       <CardHeader
                         width="100%"
                         style={{ pointerEvents: "none" }}
                       >
                         <CardImg
-                          style={{ height: "229px",width:'447px' }}
+                          style={{ height: "229px", width: "447px" }}
                           src={item.newsImage}
                         ></CardImg>
                       </CardHeader>
 
                       <CardBody>
-                        <CardTitle style={{ overflow: "hidden",height:'48px' }}>
+                        <CardTitle
+                          style={{
+                            overflow: "hidden",
+                            height: "48px",
+                            color: "white",
+                            fontFamily: "Ubuntu",
+                            fontWeight: "bold",
+                          }}
+                        >
                           {item.newsTitle}
                         </CardTitle>
-                        <CardSubtitle style={{marginTop:'20px'}}>Published By: DotEsports</CardSubtitle>
-                        <Button style={{marginBottom:'30px'}} onClick={() => dispatch({ type: 'SELECTNEWS', title: item.newsTitle,image: item.newsImage, })}>Read More</Button>
+
+                        <CardSubtitle
+                          style={{
+                            marginTop: "15px",
+                            color: "white",
+                            fontFamily: "Ubuntu",
+                          }}
+                        >
+                          Published by: DotEsports
+                          <div style={{ fontSize: "14px" }}>
+                            {item.newsTime}
+                          </div>
+                        </CardSubtitle>
+                        <Button
+                          style={{ marginBottom: "25px" }}
+                          onClick={() =>
+                            dispatch({
+                              type: "SELECTNEWS",
+                              title: item.newsTitle,
+                              image: item.newsImage,
+                              body: item.newsBody,
+                              time: item.newsTime,
+                            })
+                          }
+                        >
+                          Read More
+                        </Button>
                       </CardBody>
                     </Card>
                   </div>

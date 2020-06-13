@@ -9,13 +9,15 @@ import {
   CardTitle,
   CardImg,
   CardSubtitle,
+  CardFooter,
 } from "reactstrap";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 export default function SingleNews() {
   const newsImage = useSelector((state) => state.newsImage);
   const newsBody = useSelector((state) => state.newsBody);
   const newsTitle = useSelector((state) => state.newsTitle);
+  const newsTime = useSelector((state)=>state.newsTime)
   const dispatch = useDispatch();
   const goback = () => {
     dispatch({ type: "DESELECTNEWS" });
@@ -23,21 +25,23 @@ export default function SingleNews() {
   return (
     <>
       <Grid container>
-        <Grid item xs={2} style={{marginRight:'-20px'}}>
+       
+        <Grid item xs={2} style={{marginRight:'-25px'}}>
           <div></div>
-          <Button onClick={goback} style={{position:'fixed'}}>Go Back</Button>
+          <Button onClick={goback} style={{position:'fixed'}}>Check More News</Button>
         </Grid>
         <Grid item xs={9}>
-          <Card style={{ height: "1200px", width: "100%", alignSelf: "center" }}>
+          <Card style={{ height: "100%", width: "100%", alignSelf: "center" }}>
             <CardHeader width="100%" style={{ pointerEvents: "none" }}>
+            <CardTitle style={{ overflow: "hidden" }}><Typography variant="h5" style={{color:'white', fontFamily:'Ubuntu'}}>{newsTitle}</Typography></CardTitle>
               <CardImg style={{ height: "100%" }} src={newsImage}></CardImg>
+              <Typography style={{color:'white', fontFamily:'Ubuntu',marginTop:'10px'}}>Published by: DotEsports</Typography>
+              <Typography style={{color:'white', fontFamily:'Ubuntu',marginTop:'3px',fontSize:'14px'}}>{newsTime}</Typography>
             </CardHeader>
 
-            <CardBody>
-              <CardTitle style={{ overflow: "hidden" }}>{newsTitle}</CardTitle>
-              <CardSubtitle>{newsBody}</CardSubtitle>
-            </CardBody>
-          </Card>
+            <CardFooter><div style={{color:'white', marginTop:'115px', fontFamily:'Roboto',fontSize:'18px'}}>{newsBody}</div>
+            </CardFooter>
+              </Card>
         </Grid>
       </Grid>
     </>
