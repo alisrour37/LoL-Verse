@@ -6,7 +6,8 @@ const initialState =
             newsBody: false,
             newsTitle: false,
             imgsrc: false,
-            newsTime: false
+            newsTime: false,
+            newsID: false
 
 }
 
@@ -32,6 +33,7 @@ const singlevideoreducer = (state = initialState, action) => {
                    newsBody: action.body,
                    newsTime: action.time,
                     newsTitle: action.title,
+                    newsID: action.id
                       })
             case 'IMGSRC':
                 return{

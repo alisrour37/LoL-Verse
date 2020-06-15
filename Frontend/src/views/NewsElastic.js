@@ -23,8 +23,8 @@ export default function NewsElastic() {
   return (
     <div className="main-container">
       <ReactiveBase
-        app="lolversefinal2"
-        credentials="zZUU50CnB:f407fd58-73aa-4929-87b1-66f75f612273"
+        app="lolversefinal12"
+        credentials="DyLJEVTpQ:220d3bbd-1ded-4085-bff1-c3c5a500c9db"
         theme={{
           typography: {
             fontFamily:
@@ -152,6 +152,7 @@ export default function NewsElastic() {
                               image: item.newsImage,
                               body: item.newsBody,
                               time: item.newsTime,
+                              id: item.newsID
                             })
                           }
                         >

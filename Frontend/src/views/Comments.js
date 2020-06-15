@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import moment from 'moment';
+import axios from "axios";
+import dislikebutton from '../assets/img/dislikebutton.png';
+import likebutton from '../assets/img/likebutton.png';
 import {
   Button,
   Card,
@@ -10,181 +13,225 @@ import {
   FormGroup,
   Form,
   Input,
+  Label,
   Row,
-  Col
+  Col,
 } from "reactstrap";
-import { setOriginalNode } from "typescript";
-import { Typography } from "@material-ui/core";
 
-export default function UserProfileApp() {
- 
-const [comments,setComments]= useState([]);
-const [username,setusername] = useState();
-const [comment,setComment]= useState();
+import { Typography, Grid } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import store from "./store.js";
+import firebase from "./Firebase.js";
 
 
-useEffect(() => {
-  axios.get('http://localhost:8000/api/auth/user', {
-      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') },
-      data:null
-    })
-    .then(res=>{
-
-        setComments(res.data)
-        console.log(res.data)
-        
-    });
-    axios.get('http://localhost:8000/api/auth/comments', {
-      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') },
-     
-    })
-    .then(res=>{
-
-        setusername(res.data.username)
-        
-    });
-    
-}, []);
-
-
-const handleSubmit = (event) =>{
-  event.preventDefault();
-  let request = new FormData();
+export default function Comments() {
+  const db = firebase.firestore();
   
-    request.append('username',username)
-    request.append('comment', comment)
-    request.append('id', newsID)
+  const newsID = useSelector((state) => state.newsID);
 
-    axios.post('http://localhost:8000/api/auth/profileUpdate', request, {
-      headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
-    })
-}
-const imgsrc = "http://localhost:8000/image/" + user_id + ".png";
-dispatch({type: 'IMGSRC', data: imgsrc});
-    return (
-      <>
-        <div className="content" style={{marginTop:'3px'}}>
-          <Row>
-            
-            <Col md="6">
-              <Card>
-                <CardHeader>
-                  <h5 className="title">Edit Profile</h5>
-                </CardHeader>
-                <CardBody>
-                  <Form encType="multipart/form-data" onSubmit={()=>handleSubmit}>
-                  <Row>
-                      <Col md="12">
-                        <FormGroup >
-                          <label style={{color:'white'}} htmlFor="exampleInputEmail1" >
-                            Username
-                          </label>
-                          <Input id='Us' placeholder={placeholderUs} type="text" disabled />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-md-1" md="6">
-                        <FormGroup>
-                          <label style={{color:'white'}}>First Name</label>
-                          <Input
-                            id='FN'
-                            type="text"
-                            value={firstname}
-                            onChange={e=> setfirstname(e.target.value)}
-                            placeholder={placeholderFN}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label style={{color:'white'}}>Last Name</label>
-                          <Input
-                            id='LN'
-                            onChange={e=>setlastname(e.target.value)}
-                            value={lastname}
-                            type="text"
-                            placeholder={placeholderLN}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup >
-                          <label style={{color:'white'}} htmlFor="exampleInputEmail1" >
-                            Email address
-                          </label>
-                          <Input placeholder={placeholderEmail} type="email" disabled />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="8">
-                        <FormGroup>
-                          <label style={{color:'white'}}>About Me</label>
-                          <Input
-                            cols="80"
-                            placeholder={placeholderAB}
-                            onChange={e=>setabout(e.target.value)}
-                            value={about}
-                            rows="4"
-                            id='AB'
-                            type="textarea"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="3">
-                        <FormGroup>
-                          <label style={{color:'white'}}>Press to Upload Image</label>
-                          <img style={{height:'50%',width:'50%'}} src={uploadIcon} alt="" ></img>
-                          <Input
-                            type="file"
-                            onChange={e=>handleImage(e)}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Button className="btn-fill" color="primary" type="submit" onClick={handleSubmit}>
-                    Save
-                  </Button>
-                </CardFooter>
-              </Card>
-            </Col>
+  const [comments, setComments] = useState([]);
+  const [username, setusername] = useState();
+  const [comment, setComment] = useState("");
+  const [inputvalue,setInput] = useState();
+  const [likes,setLikes] = useState(0);
+  const [dislikes,setDislikes] = useState(0);
+  const [likecolor, setlikecolor] = useState("white");
+  const [dislikecolor, setdislikecolor] = useState("white");
+  const [documentID, setdocumentID] = useState();
 
-            <Col md="4">
-              <Card className="card-user" style={{height:'645px'}}>
-                <CardBody>
-                  <CardText />
-                  <div className="author">
-                    <div className="block block-one" />
-                    <div className="block block-two" />
-                    <div className="block block-three" />
-                    <div className="block block-four" />
-                      <img
-                        src={imgsrc}
-                        style={{height:'400px'}}
-                      />
-                      <h2 className="title" style={{fontFamily:'Ubuntu',color:'white',marginTop:'5px'}}>{username}</h2>
-                  </div>
-                  <div className="card-description" style={{ color: 'white', fontSize: 16,fontFamily:'Ubuntu',marginLeft:'30px',color:'white'}}>
-                      <Typography style={{marginLeft:'10px',fontFamily:'Ubuntu',color:'white'}} >{about}</Typography> 
-                  </div>
-                </CardBody>
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/auth/user", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((res) => {
+        setusername(res.data.username);
+      });
+ 
+    db.collection("comments").where("newsID", "==", newsID)
+      .get()
+      .then((res) => {
 
-              </Card>
-            </Col>
-            
-          </Row>
-        </div>
-      </>
-    );
+        const display = res.docs.map((doc) => doc.data());
+        const docID = res.docs.map((doc) => doc.id);
+        console.log(docID)
+        setComments(display);
+        console.log(display);
+        //setComments(res.map(commentz=>commentz.data() ));
+      });
+
+      db.collection("likes").where("newsID", "==", newsID)
+      .get()
+      .then((res) => {
+        const display = res.docs.map((doc) => doc.data());
+        if(display.length==0){
+          db.collection("likes").add({
+            dislikes: 0,
+            likes: 0,
+            newsID: newsID
+          });}
+          else{
+
+        setLikes(display[0].likes);
+        setDislikes(display[0].dislikes);
+        const docID = res.docs.map((doc) => doc.id);
+        setdocumentID(docID[0]);
+          }
+        
+        //setComments(res.map(commentz=>commentz.data() ));
+      });
+
+
+  }, []);
+
+  const handleAdd = () => {
+    console.log("batata");
+    db.collection("comments").add({
+      username: "alisrour37",
+      body: "Skafi jeeb shawarma",
+      newsID: "1",
+    });
+  };
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    setInput("")
+    const datetime= moment().format('MMMM Do YYYY, h:mm:ss a');
+   
+    db.collection("comments").add({
+      username: username,
+      body: comment,
+      newsID: newsID,
+      time: datetime
+    });
+    const tempcomment= [{username: username,
+      body: comment,
+      newsID: newsID,
+      time: datetime}];
+    setComments(tempcomment.concat(comments))
   }
+const disability = () =>{
+  if (comment==""){
+    return true;
+  }
+  return false
+}
+
+const like = () =>{
+  if(dislikecolor == 'white' && likecolor == 'white'){
+    setlikecolor('blue');
+    setLikes(likes+1);
+
+db.collection("likes").doc(documentID).update({
+  likes: firebase.firestore.FieldValue.increment(1)
+ 
+  });
+}
+  else if(dislikecolor=='white' && likecolor=='blue'){
+    setlikecolor('white')
+    setLikes(likes-1);
+
+db.collection("likes").doc(documentID).update({
+  likes: firebase.firestore.FieldValue.increment(-1)
+  
+});
+  }
+  else{
+  setdislikecolor('white');
+  setDislikes(dislikes-1);
+ 
+    setLikes(likes+1);
+    setlikecolor("blue");
+  
+  db.collection("likes").doc(documentID).update({
+    likes: firebase.firestore.FieldValue.increment(1),
+    dislikes: firebase.firestore.FieldValue.increment(-1)
+  })
+
+  }
+}
+
+const dislike=()=>{
+  if(dislikecolor == 'white' && likecolor == 'white'){
+    setdislikecolor('red');
+    setDislikes(dislikes+1);
+
+db.collection("likes").doc(documentID).update({
+  dislikes: firebase.firestore.FieldValue.increment(1)
+ 
+  });
+}
+  else if(dislikecolor=='red' && likecolor=='white'){
+    setdislikecolor('white')
+    setDislikes(dislikes-1);
+
+db.collection("likes").doc(documentID).update({
+  dislikes: firebase.firestore.FieldValue.increment(-1)
+  
+});
+  }
+  else{
+  setdislikecolor('red');
+  setDislikes(dislikes+1);
+ 
+    setLikes(likes-1);
+    setlikecolor("white");
+  
+  db.collection("likes").doc(documentID).update({
+    likes: firebase.firestore.FieldValue.increment(-1),
+    dislikes: firebase.firestore.FieldValue.increment(1)
+  })
+
+  }
+}
+  return (
+    <div style={{marginLeft:'230px',marginTop:'20px'}}>
+      <Grid container>
+        <Grid item xs ={1} style={{marginRight:'-50px'}}>
+        <img style={{height:'30px', width:'30px',marginRight:'-70px'}} src={likebutton} onClick={()=> like()} ></img>
+        </Grid>
+        <Grid item xs ={1} style={{marginRight:'-40px'}}>
+        <h4 style={{color:likecolor,width:'10%',marginTop:'2px'}}>{likes}</h4>
+        </Grid>
+        <Grid item xs ={1} style={{marginRight:'-50px'}}>
+        <img style={{height:'30px', width:'30px'}}src={dislikebutton} onClick={()=> dislike()}></img>
+        </Grid>
+        <Grid item xs ={1}>
+        <Typography style={{color:dislikecolor,width:'10%',marginTop:'2px'}}>{dislikes}</Typography>
+        </Grid>
+        </Grid>
+ 
+     <hr style={{color:'white',border:'1px solid white',width:'1140px'}}></hr>
+       
+
+     
+      <Typography variant="h4" style={{color:'white',fontFamily:'Ubuntu',marginBottom:'10px'}}>Comments</Typography>
+      <div style={{display:'inline'}} >
+            <Input
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write a comment"
+            variant = "outlined"
+            value={inputvalue}
+            multiline="true"
+            style={{color:'black',fontFamily:'Ubuntu',fontSize:'12px', width:'60%',marginRight:'20px',backgroundColor:'white',display:'inline'}}
+            />
+          
+          <Button outline color="secondary" disabled={disability()} size="sm" onClick={(e)=>handleSubmit(e)}>Comment</Button>
+          </div>
+      <div style={{marginTop:'10px'}}>
+      {comments.map((singlecomment) => (
+        
+      <div>  
+        <h4 style={{display: 'inline-block',marginRight:'20px',marginBottom:'-10px',color:'white',fontFamily:'Ubuntu'}}>{singlecomment.username}</h4>
+        <span>{singlecomment.time}</span>
+        <h5>{singlecomment.body}</h5>
+        </div>
+      
+      
+      ))}</div>
 
 
-
+    </div>
+  );
+}

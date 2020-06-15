@@ -20,6 +20,7 @@
     "fix": "0.0.6",
     "history": "^4.10.1",
     "material-ui-search-bar": "^0.4.2",
+    "moment": "^2.26.0",
     "node-sass": "4.13.1",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "^15.7.2",
