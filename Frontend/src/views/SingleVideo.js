@@ -13,20 +13,22 @@ const goback= ()=>{
 }
 return(
     <>
-<Button onClick={goback}>Go Back</Button>
-    <Grid container>
-      <Grid item xs={6}>
+<Button onClick={goback}>Leave</Button>
+    <Grid container style={{marginTop:'20px'}}>
+      <Grid item xs={8}>
     <ReactPlayer
-            width="80%"
-            controls="true"
-            height="500px"
+            width="95%"
+            controls="false"
+            height="545px"
+            playing="true"
+            onProgress="playedSeconds: 120"
             url={
               "https://www.youtube.com/watch?v=" +
               viewselection
             }
           ></ReactPlayer>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <ChatBox/>
           </Grid>
           </Grid>

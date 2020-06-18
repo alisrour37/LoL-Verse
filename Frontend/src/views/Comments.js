@@ -50,7 +50,7 @@ export default function Comments() {
         setusername(res.data.username);
       });
  
-    db.collection("comments").where("newsID", "==", newsID)
+    db.collection("comments").where("newsID", "==", newsID).orderBy("time","desc")
       .get()
       .then((res) => {
 
@@ -186,7 +186,7 @@ db.collection("likes").doc(documentID).update({
   }
 }
   return (
-    <div style={{marginLeft:'230px',marginTop:'20px'}}>
+    <div style={{marginLeft:'238px',marginTop:'20px'}}>
       <Grid container>
         <Grid item xs ={1} style={{marginRight:'-50px'}}>
         <img style={{height:'30px', width:'30px',marginRight:'-70px'}} src={likebutton} onClick={()=> like()} ></img>

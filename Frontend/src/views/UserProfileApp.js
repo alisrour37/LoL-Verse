@@ -70,7 +70,7 @@ const handleSubmit = (event) =>{
       headers: { Authorization: "Bearer " + localStorage.getItem('access_token') }
     })
 }
-const imgsrc = "http://localhost:8000/image/" + user_id + ".png";
+const imgsrc = "http://localhost:8000/image/" + username + ".png";
 dispatch({type: 'IMGSRC', data: imgsrc});
     return (
       <>

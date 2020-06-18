@@ -49,10 +49,22 @@ class AdminNavbar extends React.Component {
       image: null,
       profile: null,
       invites: [],
+      username: null,
+      url: "http://localhost:8000/image/6.png"
     };
   }
   componentDidMount() {
     window.addEventListener("resize", this.updateColor);
+    axios
+      .get("http://localhost:8000/api/auth/user", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((res) => {
+        this.setState({username: res.data.username});
+        this.setState({url: "http://localhost:8000/image/"+this.state.username+".png"})
+      });
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateColor);
@@ -197,7 +209,7 @@ class AdminNavbar extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img alt="..." src={require("assets/img/6.png")} />
+                      <img alt="..." src={this.state.url} />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
                     <p className="d-lg-none">Log out</p>

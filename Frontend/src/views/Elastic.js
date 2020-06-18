@@ -109,8 +109,8 @@ export default function Elastic() {
             pagination={true}
             className="Result_card"
             paginationAt="bottom"
-            pages={5}
-            size={6}
+            pages={9}
+            size={9}
             Loader="Loading..."
             noResults="No results were found..."
             innerClass={{

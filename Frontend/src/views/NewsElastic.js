@@ -86,7 +86,7 @@ export default function NewsElastic() {
             pagination={true}
             className="Result_card"
             paginationAt="bottom"
-            pages={5}
+            pages={10}
             size={6}
             Loader="Loading..."
             noResults="No results were found..."
