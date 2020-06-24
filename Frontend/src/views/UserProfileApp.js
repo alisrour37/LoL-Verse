@@ -169,7 +169,7 @@ dispatch({type: 'IMGSRC', data: imgsrc});
             </Col>
 
             <Col md="4">
-              <Card className="card-user" style={{height:'645px'}}>
+              <Card className="card-user" style={{height:'650px'}}>
                 <CardBody>
                   <CardText />
                   <div className="author">

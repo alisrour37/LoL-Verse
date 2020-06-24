@@ -202,7 +202,7 @@ db.collection("likes").doc(documentID).update({
         </Grid>
         </Grid>
  
-     <hr style={{color:'white',border:'1px solid white',width:'1140px'}}></hr>
+     <hr style={{color:'white',border:'1px solid white',width:'1200px'}}></hr>
        
 
      
