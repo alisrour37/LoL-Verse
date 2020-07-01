@@ -16,6 +16,7 @@ import {
   CardTitle,
   CardImg,
    CardSubtitle,
+   CardFooter,
  
 } from "reactstrap";
 import { useDispatch } from "react-redux";
@@ -130,7 +131,7 @@ export default function Elastic() {
                     style={{ marginRight: "15px" }}
                     className="main-description"
                   >
-                    <Card style={{ height: "491px", width: "477px" }}>
+                    <Card style={{ height: "530px", width: "477px" }}>
                       <CardHeader
                         width="100%"
                         style={{ pointerEvents: "none" }}
@@ -146,8 +147,9 @@ export default function Elastic() {
                           {item.snippet.title}
                         </CardTitle>
                         <CardSubtitle>Published By: Onivia</CardSubtitle>
-                        <Button onClick={() => dispatch({ type: 'SELECT', data: item.snippet.resourceId.videoId })}>Watch Now</Button>
-                      </CardBody>
+                        </CardBody>
+                    <CardFooter><Button onClick={() => dispatch({ type: 'SELECT', data: item.snippet.resourceId.videoId })}>Watch Now</Button>
+                      </CardFooter>
                     </Card>
                   </div>
                 ))}
