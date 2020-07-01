@@ -8,10 +8,9 @@ export default function NewsMain(){
 
     const newsselection = useSelector((state) => state.newsImage);
     
-    const store = createStore(singlevideoreducer);
 
 
-    //const changeInputValue = (newValue) => {dispatch({ type: 'UPDATE_INPUT', data: newValue,});};
+
     return (
       <>
         <div className="content">

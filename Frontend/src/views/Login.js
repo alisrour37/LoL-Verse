@@ -16,18 +16,7 @@ import axios from 'axios';
 import Background from 'assets/img/background.jpg'
 import Logo from 'assets/img/newlogo.png';
 import { useHistory } from 'react-router-dom';
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -4,31 +4,21 @@ import axios from "axios";
 import {
   Button,
   Card,
-  CardHeader,
-  CardBody,
   CardFooter,
-  CardText,
- Input,
-  Label,
-  Row,
-  Col,
-} from "reactstrap";
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
+  Input} from "reactstrap";
 import Avatar from '@material-ui/core/Avatar';
 import { Typography, Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-
 import firebase from "./Firebase.js";
 
 
 export default function ChatBox() {
+
   const db = firebase.firestore();
   const videoID = useSelector((state) => state.videoID);
   const [chats, setChats] = useState([]);
   const [username, setusername] = useState();
   const [chat, setChat] = useState("");
-  const [inputvalue,setInput] = useState();
     
 
   useEffect(() => {
@@ -85,18 +75,13 @@ export default function ChatBox() {
     setChats(chats.concat(tempchat))
     }
   }
-const disability = () =>{
+//disability is used to disable the button if no writing exists
+  const disability = () =>{
   if (chat==""){
     return true;
   }
   return false
 }
-  
-
-
-
-
-
 
   return (
     <div>

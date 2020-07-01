@@ -15,7 +15,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { setOriginalNode } from "typescript";
+
 import { Typography } from "@material-ui/core";
 
 export default function UserProfileApp() {
@@ -32,7 +32,7 @@ const [placeholderAB,setplaceholderAB] = useState();
 const [upload,setupload] = useState('false');
 const [image,setimage] = useState('null');
 const [user_id,setuserid] = useState(localStorage.getItem('user_id'));
-const [profile,setprofile] = useState();
+
 
 
 useEffect(() => {

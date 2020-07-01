@@ -3,24 +3,9 @@ import moment from 'moment';
 import axios from "axios";
 import dislikebutton from '../assets/img/dislikebutton.png';
 import likebutton from '../assets/img/likebutton.png';
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardText,
-  FormGroup,
-  Form,
-  Input,
-  Label,
-  Row,
-  Col,
-} from "reactstrap";
-
+import {Button, Input} from "reactstrap";
 import { Typography, Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import store from "./store.js";
 import firebase from "./Firebase.js";
 
 
@@ -28,7 +13,6 @@ export default function Comments() {
   const db = firebase.firestore();
   
   const newsID = useSelector((state) => state.newsID);
-
   const [comments, setComments] = useState([]);
   const [username, setusername] = useState();
   const [comment, setComment] = useState("");
@@ -56,10 +40,8 @@ export default function Comments() {
 
         const display = res.docs.map((doc) => doc.data());
         const docID = res.docs.map((doc) => doc.id);
-        console.log(docID)
         setComments(display);
-        console.log(display);
-        //setComments(res.map(commentz=>commentz.data() ));
+      
       });
 
       db.collection("likes").where("newsID", "==", newsID)
@@ -125,7 +107,7 @@ const like = () =>{
 
 db.collection("likes").doc(documentID).update({
   likes: firebase.firestore.FieldValue.increment(1)
- 
+  
   });
 }
   else if(dislikecolor=='white' && likecolor=='blue'){

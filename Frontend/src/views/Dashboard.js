@@ -1,3 +1,4 @@
+//Main Videos Page, used the name Dashboard for material ui purposes
 import React from "react";
 
 import { createStore } from 'redux';

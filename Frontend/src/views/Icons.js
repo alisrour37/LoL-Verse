@@ -1,3 +1,4 @@
+//Main News Page, used the name icons for material ui purposes
 import React from "react";
 
 import { createStore } from 'redux';

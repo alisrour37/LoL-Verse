@@ -1,29 +1,10 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
-
-// reactstrap components
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 import {
-  Alert,
   UncontrolledAlert,
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -31,9 +12,15 @@ import {
   Row,
   Col
 } from "reactstrap";
+import firebase from "./Firebase.js";
+import {useHistory} from 'react-router-dom';
 
-class Notifications extends React.Component {
-  notify = place => {
+export default function Notifications (){
+  const history= useHistory();
+  const db = firebase.firestore();
+  const [notifications, setNotifications] = useState([]);
+  const [username, setusername] = useState();
+  const notify = place => {
     var color = Math.floor(Math.random() * 5 + 1);
     var type;
     switch (color) {
@@ -55,74 +42,68 @@ class Notifications extends React.Component {
       default:
         break;
     }
-    var options = {};
-    options = {
-      place: place,
-      message: (
-        <div>
-          <div>
-            Welcome to <b>Black Dashboard React</b> - a beautiful freebie for
-            every web developer.
-          </div>
-        </div>
-      ),
-      type: type,
-      icon: "tim-icons icon-bell-55",
-      autoDismiss: 7
-    };
-    this.refs.notificationAlert.notificationAlert(options);
+
   };
-  render() {
+ 
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/auth/user", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((res) => {
+        setusername(res.data.username);
+        db.collection("notifications").where("username", "==", res.data.username)
+      .get()
+      .then((res) => {
+
+        const results = res.docs.map((doc) => doc.data());
+        const docID = res.docs.map((doc) => doc.id);
+        setNotifications(results);
+      
+      });
+      });
+  }, []);
+
     return (
       <>
         <div className="content">
           <div className="react-notification-alert-container">
-            <NotificationAlert ref="notificationAlert" />
+        
           </div>
           <Row>
-            <Col md="6">
+            {notifications.map((singlenotification)=>(
+              <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Notifications Style</CardTitle>
+                  <CardTitle tag="h4">Notifications</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Alert color="info">
-                    <span>This is a plain notification</span>
-                  </Alert>
-                  <UncontrolledAlert color="info">
-                    <span>This is a notification with close button.</span>
-                  </UncontrolledAlert>
-                  <UncontrolledAlert className="alert-with-icon" color="info">
+                  <div href="/admin/user-profile" onClick={()=> history.push('/admin/'+singlenotification.target)}>
+                  <UncontrolledAlert className="alert-with-icon" color="info" href="/admin/user-profile">
                     <span
                       className="tim-icons icon-bell-55"
                       data-notify="icon"
                     />
-                    <span data-notify="message">
-                      This is a notification with close button and icon.
-                    </span>
+                    <span data-notify="message" href="/admin/user-profile">
+           {singlenotification.body}         
+           </span>
                   </UncontrolledAlert>
-                  <UncontrolledAlert className="alert-with-icon" color="info">
-                    <span
-                      className="tim-icons icon-bell-55"
-                      data-notify="icon"
-                    />
-                    <span data-notify="message">
-                      This is a notification with close button and icon and have
-                      many lines. You can see that the icon and the close button
-                      are always vertically aligned. This is a beautiful
-                      notification. So you don't have to worry about the style.
-                    </span>
-                  </UncontrolledAlert>
+                  </div>
+            
                 </CardBody>
               </Card>
             </Col>
           
            
+
+            ))}
+            
           </Row>
         </div>
       </>
     );
-  }
+ 
 }
-
-export default Notifications;
